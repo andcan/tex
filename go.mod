@@ -1,4 +1,4 @@
-module tex
+module github.com/andcan/tex
 
 go 1.12
 
