@@ -7,7 +7,7 @@ go:
 git:
   depth: 1
 script:
-  - go test -v -race ./...
+  - go test -race -coverprofile=coverage.txt -covermode=atomic
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) -t 9218717a-ddf3-476e-8929-a6471991c4fe
