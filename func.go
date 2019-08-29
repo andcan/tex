@@ -6,7 +6,7 @@ import (
 )
 
 func ToGo(name string) string {
-	name = strings.TrimLeft(name,"_")
+	name = strings.TrimLeft(name, "_")
 	runes := make([]rune, 0, len(name))
 
 	wordWalker(name, func(info *wordInfo) {

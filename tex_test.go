@@ -58,15 +58,15 @@ func mustFs() afero.Fs {
 
 func TestRenderInvalidOptions(t *testing.T) {
 
-	type args struct{
+	type args struct {
 		options Options
 	}
 
 	var tests = []struct {
 		name    string
-		args args
+		args    args
 		errType error
-		init func(args *args) error
+		init    func(args *args) error
 	}{
 		{
 			name: "empty source",
