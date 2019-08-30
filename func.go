@@ -5,6 +5,7 @@ import (
 	"unicode"
 )
 
+// Returns a valid exported go identifier for name
 func ToGo(name string) string {
 	name = strings.TrimLeft(name, "_")
 	runes := make([]rune, 0, len(name))
@@ -17,7 +18,7 @@ func ToGo(name string) string {
 			if strings.ToUpper(word) == word || strings.ToLower(word) == word {
 				// FOO or foo → Foo
 				// FOo → FOo
-				word = ucFirst(strings.ToLower(word))
+				word = UcFirst(strings.ToLower(word))
 			}
 		}
 		runes = append(runes, []rune(word)...)
@@ -26,6 +27,7 @@ func ToGo(name string) string {
 	return string(runes)
 }
 
+// Returns a valid unexported go identifier for name
 func ToGoPrivate(name string) string {
 	runes := make([]rune, 0, len(name))
 
@@ -39,13 +41,13 @@ func ToGoPrivate(name string) string {
 				word = strings.ToLower(info.Word)
 			} else {
 				// ITicket → iTicket
-				word = lcFirst(info.Word)
+				word = LcFirst(info.Word)
 			}
 			first = false
 		case info.MatchCommonInitial:
 			word = strings.ToUpper(word)
 		case !info.HasCommonInitial:
-			word = ucFirst(strings.ToLower(word))
+			word = UcFirst(strings.ToLower(word))
 		}
 		runes = append(runes, []rune(word)...)
 	})
@@ -147,7 +149,8 @@ func sanitizeKeywords(name string) string {
 	return name
 }
 
-func ucFirst(s string) string {
+// Converts first rune to uppercase
+func UcFirst(s string) string {
 	if s == "" {
 		return ""
 	}
@@ -156,7 +159,8 @@ func ucFirst(s string) string {
 	return string(r)
 }
 
-func lcFirst(s string) string {
+// Converts first rune to lowercase
+func LcFirst(s string) string {
 	if s == "" {
 		return ""
 	}
