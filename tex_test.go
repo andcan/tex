@@ -207,7 +207,7 @@ func main() {
 			expected:     `Hello tex`,
 		},
 		{
-			name: "DefaultFuncMap",
+			name: "defaultFuncMap.txt",
 			options: Options{
 				Source:  filepath.Join(sourceDir, "defaultFuncMap.txt"),
 				Dest:    destDir,
