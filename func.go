@@ -2,10 +2,21 @@ package tex
 
 import (
 	"strings"
+	"text/template"
 	"unicode"
 )
 
-// Returns a valid exported go identifier for name
+// DefaultFuncMap is automatically added to available template functions
+func DefaultFuncMap() template.FuncMap {
+	return template.FuncMap{
+		"go":        ToGo,
+		"goPrivate": ToGoPrivate,
+		"lcFirst":   LcFirst,
+		"ucFirst":   UcFirst,
+	}
+}
+
+// ToGo returns a valid exported go identifier for name
 func ToGo(name string) string {
 	name = strings.TrimLeft(name, "_")
 	runes := make([]rune, 0, len(name))
@@ -27,7 +38,7 @@ func ToGo(name string) string {
 	return string(runes)
 }
 
-// Returns a valid unexported go identifier for name
+// ToGoPrivate returns a valid unexported go identifier for name
 func ToGoPrivate(name string) string {
 	runes := make([]rune, 0, len(name))
 
@@ -149,7 +160,7 @@ func sanitizeKeywords(name string) string {
 	return name
 }
 
-// Converts first rune to uppercase
+// UcFirst returns s with first rune uppercase
 func UcFirst(s string) string {
 	if s == "" {
 		return ""
@@ -159,7 +170,7 @@ func UcFirst(s string) string {
 	return string(r)
 }
 
-// Converts first rune to lowercase
+// LcFirst returns s with first rune lowercase
 func LcFirst(s string) string {
 	if s == "" {
 		return ""

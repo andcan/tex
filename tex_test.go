@@ -25,7 +25,8 @@ func main() {
 	fmt.Println("Hello {{.Message}}"
 }
 `,
-		"hello.txt": `Hello {{.Message}}`,
+		"hello.txt":          `Hello {{.Message}}`,
+		"defaultFuncMap.txt": `Hello {{.Message | go}}`,
 	}
 )
 
@@ -204,6 +205,19 @@ func main() {
 			},
 			expectedPath: filepath.Join(destDir, sourceDir, "hello.txt"),
 			expected:     `Hello tex`,
+		},
+		{
+			name: "DefaultFuncMap",
+			options: Options{
+				Source:  filepath.Join(sourceDir, "defaultFuncMap.txt"),
+				Dest:    destDir,
+				WorkDir: "/",
+				Fs:      mustFs(),
+				Data:    data{Message: "tex"},
+				Funcs:   nil,
+			},
+			expectedPath: filepath.Join(destDir, sourceDir, "defaultFuncMap.txt"),
+			expected:     `Hello Tex`,
 		},
 	}
 

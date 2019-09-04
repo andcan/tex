@@ -35,6 +35,12 @@ func (o *Options) ApplyDefaults() {
 	if nil == o.Fs {
 		o.Fs = afero.NewOsFs()
 	}
+
+	funcs := DefaultFuncMap()
+	for n, f := range o.Funcs {
+		funcs[n] = f
+	}
+	o.Funcs = funcs
 }
 
 func (o *Options) Validate() error {
